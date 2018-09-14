@@ -22,7 +22,7 @@ RUN apt-get update && apt-get install -y apt-file && apt-file update && apt-get 
 RUN sh /opt/docker/etc/ssh/install-composer.sh
 
 # Copy any initial files into the app directory. Web root is /app/www
-COPY /app/* /app/
+COPY app/ /app/
 
 # Configure volume/workdir
 WORKDIR /app/

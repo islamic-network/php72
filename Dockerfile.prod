@@ -19,7 +19,7 @@ RUN ln -sf /opt/docker/etc/cron/crontab /etc/cron.d/docker-boilerplate \
 RUN sh /opt/docker/etc/ssh/install-composer.sh
 
 # Copy any initial files into the app directory. Web root is /app/www
-COPY /app/* /app/
+COPY app/ /app/
 
 # Configure volume/workdir
 WORKDIR /app/
