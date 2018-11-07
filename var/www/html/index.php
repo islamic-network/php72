@@ -1,5 +1,6 @@
-<h1>
+<?php
+$data = [
+    'PROVISION_CONTEXT' => getenv('PROVISION_CONTEXT')
+];
 
-    بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ
-
-</h1>
+echo json_encode($data);

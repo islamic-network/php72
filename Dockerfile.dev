@@ -21,14 +21,13 @@ RUN apt-get upgrade && apt-get update && ACCEPT_EULA=Y && apt-get install -y \
 # Install PECLs
 RUN pecl install redis \
     && pecl install geoip-1.1.1 \
-    && pecl install xdebug \
     && pecl install apcu \
     && pecl install memcached \
     && pecl install timezonedb
 
 RUN docker-php-ext-install -j$(nproc) iconv bcmath xml gd mbstring pdo tidy gettext intl pdo pdo_mysql simplexml tokenizer xml xmlwriter zip \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-    && docker-php-ext-enable redis geoip xdebug apcu memcached timezonedb
+    && docker-php-ext-enable redis geoip apcu memcached timezonedb
 
 # Enable PHP error logging to stdout
 RUN printf "log_errors = On \nerror_log = /dev/stderr\n" > /usr/local/etc/php/conf.d/php-logs.ini
@@ -48,13 +47,21 @@ RUN a2enmod rewrite expires
 
 # Run apache on port 8080 instead of 80 due. On linux, ports under 1024 require admin privileges and we run apache as www-data.
 RUN sed -i 's/Listen 80/Listen 8080/g' /etc/apache2/ports.conf
-EXPOSE 8080
+
 RUN chmod g+w /var/log/apache2
 RUN chmod 777 /var/lock/apache2
 RUN chmod 777 /var/run/apache2
-# RUN chmod g+w /var/lock/apache2
-# RUN chmod g+w /var/run/apache2
 
 RUN echo "<?php echo phpinfo(); ?>" > /var/www/html/phpinfo.php
 
 COPY var/www/html/index.php /var/www/html/index.php
+
+EXPOSE 8080
+
+### DEV ENVIRONMENT SPECIFIC ###
+################################
+
+ENV PROVISION_CONTEXT "development"
+RUN pecl install xdebug && docker-php-ext-enable xdebug
+
+################################
