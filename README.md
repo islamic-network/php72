@@ -5,7 +5,7 @@ docker build -f Dockerfile.dev . -t php72-dev
 docker run -d -p 8080:8080 -it --name=php -v $(pwd)/var/www/html:/var/www/html php72-dev
 ```
 
-## To use development environment:
+## To use production environment:
 ```
 docker build -f Dockerfile.prod . -t php72
 docker run -d -p 8080:8080 -it --name=php -v $(pwd)/var/www/html:/var/www/html php72
