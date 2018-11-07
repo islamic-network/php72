@@ -2,7 +2,7 @@
 To use:
 ```
 docker build -f Dockerfile.dev . -t php
-docker run -d -p 8080:80 -p 443:443 -it --name=php -v $(pwd)/var/www/html:/var/www/html php
+docker run -d -p 8080:8080 -it --name=php -v $(pwd)/var/www/html:/var/www/html php
 ```
 
 Remember:
