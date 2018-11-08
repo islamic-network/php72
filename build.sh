@@ -11,18 +11,18 @@ prod=vesica/php72
 dev=vesica/php72-dev
 
 ## The actual script to build and push the image
-echo "Building development image"
-docker build -f Dockerfile.dev . -t $dev:$version
-docker push $dev:$version
-
 echo "Building production image"
 docker build -f Dockerfile.prod . -t $prod:$version
 docker push $prod:$version
 
+echo "Building development image"
+docker build -f Dockerfile.dev . -t $dev:$version
+docker push $dev:$version
+
 if [ "$version" != "latest" ]
     then
-        docker build -f Dockerfile.dev . -t $dev:latest
-        docker push $dev:latest
         docker build -f Dockerfile.prod . -t $prod:latest
         docker push $prod:latest
+        docker build -f Dockerfile.dev . -t $dev:latest
+        docker push $dev:latest
     fi
