@@ -16,7 +16,8 @@ RUN apt-get upgrade && apt-get update && ACCEPT_EULA=Y && apt-get install -y \
         wget \
         vim \
         gnupg \
-        gnupg2
+        gnupg2 \
+        git
 
 # Install PECLs
 RUN pecl install redis \
