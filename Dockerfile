@@ -26,7 +26,7 @@ RUN pecl install redis \
     && pecl install memcached \
     && pecl install timezonedb
 
-RUN docker-php-ext-install -j$(nproc) calendar iconv bcmath xml gd mbstring pdo tidy gettext intl pdo pdo_mysql simplexml tokenizer xml xmlwriter zip \
+RUN docker-php-ext-install -j$(nproc) calendar iconv bcmath xml gd mbstring pdo tidy gettext intl pdo pdo_mysql mysqli simplexml tokenizer xml xmlwriter zip \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-enable redis geoip apcu memcached timezonedb
 
@@ -34,7 +34,9 @@ RUN docker-php-ext-install -j$(nproc) calendar iconv bcmath xml gd mbstring pdo 
 RUN printf "log_errors = On \nerror_log = /dev/stderr\n" > /usr/local/etc/php/conf.d/php-logs.ini
 
 # Apache settings
-COPY etc/apache2/host.conf /etc/apache2/conf-enabled/host.conf
+COPY etc/apache2/conf-enabled/host.conf /etc/apache2/conf-enabled/host.conf
+COPY etc/apache2/apache2.conf /etc/apache2/apache2.conf
+COPY etc/apache2/sites-enabled/000-default.conf /etc/apache2/sites-enabled/000-default.conf
 
 # PHP settings
 COPY etc/php/production.ini /usr/local/etc/php/conf.d/production.ini
@@ -45,7 +47,17 @@ COPY etc/ssh/* /usr/local/ssh/
 RUN sh /usr/local/ssh/install-composer.sh
 RUN mv composer.phar /usr/local/bin/composer
 
-RUN a2enmod rewrite expires
+RUN a2enmod proxy && \
+  a2enmod proxy_http && \
+  a2enmod proxy_ajp && \
+  a2enmod rewrite && \
+  a2enmod deflate && \
+  a2enmod headers && \
+  a2enmod proxy_balancer && \
+  a2enmod proxy_connect && \
+  a2enmod ssl && \
+  a2enmod cache && \
+  a2enmod expires
 
 # Run apache on port 8080 instead of 80 due. On linux, ports under 1024 require admin privileges and we run apache as www-data.
 RUN sed -i 's/Listen 80/Listen 8080/g' /etc/apache2/ports.conf
