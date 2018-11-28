@@ -7,22 +7,21 @@ version=4
 #UNLESS YOU WANT TO CHANGE SOMETHING TO DO WITH THE PUSH TO NEXUS, LEAVE THE BELOW ALONE #
 ###########################################################################################
 ## The URL of the repo. Do not change unless you're sure about this.
-prod=vesica/php72
-dev=vesica/php72-dev
+prod=vesica/php72:$version
+dev=vesica/php72:dev
+latest=vesica/php72:latest
 
 ## The actual script to build and push the image
 echo "Building production image"
-docker build -f Dockerfile . -t $prod:$version
-docker push $prod:$version
+docker build -f Dockerfile . -t $prod
+docker push $prod
 
 echo "Building development image"
-docker build -f Dockerfile.dev . -t $dev:$version
-docker push $dev:$version
+docker build -f Dockerfile.dev . -t $dev
+docker push $dev
 
 if [ "$version" != "latest" ]
     then
-        docker build -f Dockerfile . -t $prod:latest
-        docker push $prod:latest
-        docker build -f Dockerfile.dev . -t $dev:latest
-        docker push $dev:latest
+        docker build -f Dockerfile . -t $latest
+        docker push $latest
     fi
