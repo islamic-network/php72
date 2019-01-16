@@ -12,7 +12,6 @@ jobs:
           name: Build Docker image
           command: docker build -t $IMAGE_NAME:latest .
   publish-latest:
-    context: Docker Hub
     environment:
       IMAGE_NAME: vesica/php72
     docker:
@@ -30,6 +29,13 @@ workflows:
   build-master:
     jobs:
       - build:
+          filters:
+            branches:
+              only: master
+      - publish-latest:
+          context: Docker Hub
+          requires:
+            - build
           filters:
             branches:
               only: master
