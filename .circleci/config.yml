@@ -33,7 +33,7 @@ jobs:
       - run:
           name: Publish Docker Image to Docker Hub
           command: |
-            echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+            echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
             docker push $IMAGE_NAME:latest
   publish-tag:
     executor: docker-publisher
@@ -47,7 +47,7 @@ jobs:
       - run:
           name: Publish Docker Image to Docker Hub
           command: |
-            echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+            echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
             IMAGE_TAG=${CIRCLE_TAG}
             docker tag $IMAGE_NAME:latest $IMAGE_NAME:$IMAGE_TAG
             docker push $IMAGE_NAME:latest
@@ -62,7 +62,7 @@ workflows:
             branches:
               only: master
       - publish-latest:
-          context: docker-hub
+          context: Docker Hub
           requires:
             - build
           filters:
@@ -77,7 +77,7 @@ workflows:
             branches:
               ignore: /.*/
       - publish-tag:
-          context: docker-hub
+          context: Docker Hub
           requires:
             - build
           filters:
