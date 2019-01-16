@@ -67,7 +67,7 @@ This will produce something like this:
 
 This means your app is taking on average, 16-17 MB to serve a request. If you run WordPress or Drupal, this may be closer to 50 MB.
 
-So, this would mean that to serve upto 150 requests, your container needs a maximum of 17 MB x 150 = 2550 MB of RAM.
+So, this would mean that to serve upto 150 requests, your container needs a maximum of 17 MB x 150 = 2550 + 100 MB opcache = 2650 MB of RAM.
 
 Add another 200 MB as a safety net for any other processes. So, an image running this container should get no more than 2750 MB of RAM. Additional RAM will likely go unused.
 
