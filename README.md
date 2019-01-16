@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/vesica/php72.svg?style=svg)](https://circleci.com/gh/vesica/php72)
+
 # PHP 7.2 Docker Image with Apache
 
 This repository produces a PHP 7.2 Image with Apache 2.4, ready for production use.
@@ -29,7 +31,7 @@ docker run -d -p 8080:8080 -it --name=php -v $(pwd)/var/www/html:/var/www/html p
 
 ## Build to use as a production environment:
 ```
-docker build -f Dockerfile.prod . -t php72
+docker build -f Dockerfile . -t php72
 docker run -d -p 8080:8080 -it --name=php -v $(pwd)/var/www/html:/var/www/html php72
 ```
 
