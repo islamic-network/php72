@@ -110,6 +110,8 @@ workflows:
       - publish-dev:
           context: Docker Hub
           requires:
+            - build-production
+            - publish-production
             - build-dev
           filters:
             branches:
