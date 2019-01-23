@@ -14,18 +14,18 @@ The Apache document root in the container is /var/www/html and Apache is exposed
 
 ## Pull from Docker Hub to use
 
-For production use, without XDebug:
+For production use, with OpCache enabed and without XDebug:
 
 ```
 docker run -d -p 8080:8080 -it --name=php -v $(pwd)/var/www/html:/var/www/html vesica/php72:latest
 ```
 
-or with XDebug:
+or with XDebug and without OpCache:
 ```
 docker run -d -p 8080:8080 -it --name=php -v $(pwd)/var/www/html:/var/www/html vesica/php72:dev
 ```
 
-## Build to use as a development environment (i.e., with XDebug):
+## Build to use as a development environment (i.e., with XDebug and without OpCache enabled):
 ```
 docker build -f Dockerfile.dev . -t php72:dev
 docker run -d -p 8080:8080 -it --name=php -v $(pwd)/var/www/html:/var/www/html php72:dev
