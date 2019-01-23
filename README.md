@@ -1,4 +1,6 @@
-[![CircleCI](https://circleci.com/gh/vesica/php72.svg?style=svg)](https://circleci.com/gh/vesica/php72)
+[![CircleCI](https://circleci.com/gh/vesica/php72.svg?style=shield)](https://circleci.com/gh/vesica/php72)
+[![](https://img.shields.io/docker/pulls/vesica/php72.svg)](https://cloud.docker.com/u/vesica/repository/docker/vesica/php72)
+[![](https://img.shields.io/github/license/vesica/php72.svg)](https://github.com/vesica/php72/blob/master/LICENSE.txt)
 
 # PHP 7.2 Docker Image with Apache
 
