@@ -60,11 +60,10 @@ RUN a2enmod proxy && \
   a2enmod expires
 
 # Run apache on port 8080 instead of 80 due. On linux, ports under 1024 require admin privileges and we run apache as www-data.
-RUN sed -i 's/Listen 80/Listen 8080/g' /etc/apache2/ports.conf
-
-RUN chmod g+w /var/log/apache2
-RUN chmod 777 /var/lock/apache2
-RUN chmod 777 /var/run/apache2
+RUN sed -i 's/Listen 80/Listen 8080/g' /etc/apache2/ports.conf && \
+  chmod g+w /var/log/apache2 && \
+  chmod 777 /var/lock/apache2 && \
+  chmod 777 /var/run/apache2
 
 RUN echo "<?php echo phpinfo(); ?>" > /var/www/html/phpinfo.php
 
