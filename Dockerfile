@@ -10,7 +10,7 @@ RUN apt-get upgrade && apt-get update && ACCEPT_EULA=Y && apt-get install -y \
         libmemcached-dev \
         libgeoip-dev \
         libxml2-dev \
-        libxslt \
+        libxslt1.1 \
         libtidy-dev \
         libaio1 \
         apt-file \
