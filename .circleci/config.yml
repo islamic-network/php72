@@ -45,6 +45,7 @@ jobs:
             echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
             IMAGE_TAG="${CIRCLE_BUILD_NUM}"
             docker tag $IMAGE_NAME:latest $IMAGE_NAME_DH:$IMAGE_TAG
+            docker tag $IMAGE_NAME:latest $IMAGE_NAME_DH:latest
             docker push $IMAGE_NAME_DH:latest
             docker push $IMAGE_NAME_DH:$IMAGE_TAG
   build-dev:
@@ -80,6 +81,7 @@ jobs:
           name: Publish Docker Image to Docker Hub
           command: |
             echo "$DOCKERHUB_PASSWORD" | docker login quay.io -u "$DOCKERHUB_USERNAME" --password-stdin
+            docker tag $IMAGE_NAME:dev $IMAGE_NAME_DH:dev
             docker push $IMAGE_NAME_DH:dev
 
 workflows:
