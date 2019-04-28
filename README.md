@@ -1,5 +1,4 @@
 [![CircleCI](https://circleci.com/gh/vesica/php72.svg?style=shield)](https://circleci.com/gh/vesica/php72)
-[![](https://img.shields.io/docker/pulls/vesica/php72.svg)](https://cloud.docker.com/u/vesica/repository/docker/vesica/php72)
 [![](https://img.shields.io/github/license/vesica/php72.svg)](https://github.com/vesica/php72/blob/master/LICENSE.txt)
 
 # PHP 7.2 Docker Image with Apache
@@ -8,7 +7,7 @@ This repository produces a PHP 7.2 Image with Apache 2.4, ready for production u
 
 It is based on the official PHP 7.2 Docker Image and runs Debian.
 
-It will work with OpenShift Online, Sloppy.io or any other Docker hosts.
+It will work with OpenShift Online, Docker Swarm, Sloppy.io or any other Docker hosts.
 
 The Apache document root in the container is /var/www/html and Apache is exposed on port 8080.
 
@@ -17,12 +16,12 @@ The Apache document root in the container is /var/www/html and Apache is exposed
 For production use, with OpCache enabed and without XDebug:
 
 ```
-docker run -d -p 8080:8080 -it --name=php -v $(pwd)/var/www/html:/var/www/html vesica/php72:latest
+docker run -d -p 8080:8080 -it --name=php -v $(pwd)/var/www/html:/var/www/html quay.io/vesica/php72:latest
 ```
 
 or with XDebug and without OpCache:
 ```
-docker run -d -p 8080:8080 -it --name=php -v $(pwd)/var/www/html:/var/www/html vesica/php72:dev
+docker run -d -p 8080:8080 -it --name=php -v $(pwd)/var/www/html:/var/www/html quay.io/vesica/php72:dev
 ```
 
 ## Build to use as a development environment (i.e., with XDebug and without OpCache enabled):
@@ -39,7 +38,7 @@ docker run -d -p 8080:8080 -it --name=php -v $(pwd)/var/www/html:/var/www/html p
 
 
 ## Publish Images
-Run ```sh build.sh``` to update vesica/php72:latest (https://hub.docker.com/r/vesica/php72/) as well as the version specified in that file.
+Run ```sh build.sh``` to update quay.io/vesica/php72:latest (https://hub.docker.com/r/vesica/php72/) as well as the version specified in that file.
 Running ```build.sh``` will also create vesica/php72:dev on hub.docker.com which is basically the same image with XDebug.
 
 Please specify the appropriate version for the version number variable in build.sh.
