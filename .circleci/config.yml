@@ -80,7 +80,7 @@ jobs:
       - run:
           name: Publish Docker Image to Docker Hub
           command: |
-            echo "$DOCKERHUB_PASSWORD" | docker login quay.io -u "$DOCKERHUB_USERNAME" --password-stdin
+            echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
             docker tag $IMAGE_NAME:dev $IMAGE_NAME_DH:dev
             docker push $IMAGE_NAME_DH:dev
 
