@@ -16,6 +16,7 @@ RUN apt-get upgrade && apt-get update && ACCEPT_EULA=Y && apt-get install -y \
         zlib1g-dev \
         libpng-dev \
         libjpeg-dev \
+        libwebp-dev \
         libgmp-dev \
         libldap2-dev \
         libaio1 \
