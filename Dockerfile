@@ -25,14 +25,20 @@ RUN apt-get upgrade && apt-get update && ACCEPT_EULA=Y && apt-get install -y \
         gnupg \
         gnupg2 \
         git \
+        gcc \
+        g++ \
+        autoconf \
+        libc-dev \
+        pkg-config \
     && pecl install redis \
     && pecl install geoip-1.1.1 \
     && pecl install apcu \
     && pecl install memcached \
     && pecl install timezonedb \
+    && pecl install grpc \
     && docker-php-ext-configure gd --with-gd --with-freetype-dir=/usr/include/ --with-webp-dir=/usr/include/ --with-jpeg-dir=/usr/include/  \
-    && docker-php-ext-install gd calendar gmp ldap sysvmsg pcntl iconv bcmath xml mbstring tidy gettext intl pdo pdo_mysql mysqli simplexml tokenizer xml xsl xmlwriter zip opcache exif \
-    && docker-php-ext-enable redis geoip apcu memcached timezonedb
+    && docker-php-ext-install gd calendar gmp ldap sysvmsg pcntl iconv bcmath xml mbstring tidy gettext intl pdo pdo_mysql mysqli simplexml tokenizer xml xsl xmlwriter zip opcache exif sockets \
+    && docker-php-ext-enable redis geoip apcu memcached timezonedb grpc
 
 # Enable PHP error logging to stdout
 RUN printf "log_errors = On \nerror_log = /dev/stderr\n" > /usr/local/etc/php/conf.d/php-logs.ini
