@@ -4,6 +4,7 @@ executors:
     environment:
       IMAGE_NAME: quay.io/vesica/php72
       IMAGE_NAME_DH: vesica/php72
+      IMAGE_NAME_IN: islamicnetwork/php72
     docker:
       - image: circleci/buildpack-deps:stretch
 jobs:
@@ -45,9 +46,13 @@ jobs:
             echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
             IMAGE_TAG="${CIRCLE_BUILD_NUM}"
             docker tag $IMAGE_NAME:latest $IMAGE_NAME_DH:$IMAGE_TAG
+            docker tag $IMAGE_NAME:latest $IMAGE_NAME_IN:$IMAGE_TAG
             docker tag $IMAGE_NAME:latest $IMAGE_NAME_DH:latest
+            docker tag $IMAGE_NAME:latest $IMAGE_NAME_IN:latest
             docker push $IMAGE_NAME_DH:latest
+            docker push $IMAGE_NAME_IN:latest
             docker push $IMAGE_NAME_DH:$IMAGE_TAG
+            docker push $IMAGE_NAME_IN:$IMAGE_TAG
   build-dev:
     executor: docker-publisher
     steps:
@@ -82,7 +87,9 @@ jobs:
           command: |
             echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
             docker tag $IMAGE_NAME:dev $IMAGE_NAME_DH:dev
+            docker tag $IMAGE_NAME:dev $IMAGE_NAME_IN:dev
             docker push $IMAGE_NAME_DH:dev
+            docker push $IMAGE_NAME_IN:dev
 
 workflows:
   version: 2
